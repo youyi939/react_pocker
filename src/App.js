@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component{
+
+  constructor() {
+    super();
+    this.state={
+      title:"Wlecome"
+    }
+    console.log('constructor..........')
+  }
+
+  render() {
+    console.log('render...........')
+    return <div><h3>生命周期测试</h3>
+      <h2>{this.state.title}</h2>
     </div>
-  );
+  }
+  componentDidMount() {
+    console.log('componentDidMount..........')
+    fetch('http://localhost:3001/posts',{method:"GET"})
+        .then(resp=>resp.json())
+        .then(info=>this.setState({title:info[0].title}))
+
+  }
+
 }
 
 export default App;
